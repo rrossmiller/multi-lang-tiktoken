@@ -5,20 +5,19 @@ import numpy as np
 import tiktoken
 
 if __name__ == "__main__":
+    runs = 50
     with open("../input.txt") as fin:
         data = fin.read()
 
     data = data.split("\n\n")
     print(f"Num samples: {len(data)}")
-    print(data[-1])
 
-    # gpt 3.5 turbo
     encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
     times = []
     all_results = []
-    for _ in range(10):
-        start = perf_counter_ns()
+    for _ in range(runs):
         results = []
+        start = perf_counter_ns()
         for d in data:
             r = encoding.encode(d)
             results.append(len(r))

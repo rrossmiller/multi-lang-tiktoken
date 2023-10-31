@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+	runs := 50
 	encoding := "gpt-3.5-turbo"
 	f, err := os.ReadFile("../input.txt")
 	if err != nil {
@@ -17,8 +18,6 @@ func main() {
 	}
 	data := strings.Split(string(f), "\n\n")
 	fmt.Printf("Num samples: %d\n", len(data))
-	fmt.Println(data[len(data)-1])
-	return
 
 	tkm, err := tiktoken.EncodingForModel(encoding)
 	if err != nil {
@@ -28,7 +27,7 @@ func main() {
 	// encode
 	times := []int64{}
 	allResults := [][]int{}
-	for i := 0; i < 10; i++ {
+	for i := 0; i < runs; i++ {
 		start := time.Now()
 		results := make([]int, len(data))
 		for j, d := range data {

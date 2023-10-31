@@ -1,5 +1,7 @@
 # multi-lang-tiktoken
 
+Ensuring that tiktoken in other languages works the same as in python. Also tests speed
+
 
 ## How each test chunk is constructed
 Split by blank lines.
