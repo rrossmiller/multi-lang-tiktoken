@@ -91,10 +91,12 @@ fn transpose(v: Vec<Vec<usize>>) -> Vec<Vec<i32>> {
 
 #[cfg(test)]
 mod tests {
+    use std::fs;
+
     use crate::transpose;
 
     #[test]
-    fn t1() {
+    fn test_transpose() {
         let input = vec![vec![0, 1, 2], vec![2, 3, 4]];
         let output = vec![vec![0, 2], vec![1, 3], vec![2, 4]];
 
@@ -107,7 +109,25 @@ mod tests {
     }
 
     #[test]
-    fn test_tokens_match(){
-        //
+    fn test_tokens_match() {
+        let data_path = "results.txt";
+        let data = fs::read_to_string(data_path).expect(format!("{data_path} not found").as_str());
+        let data = data.lines().collect::<Vec<&str>>()[2]
+            .split(',')
+            .map(|d| d.parse().unwrap())
+            .collect::<Vec<i32>>();
+
+        let data_path = "../py/baseline.txt";
+        let base_data =
+            fs::read_to_string(data_path).expect(format!("{data_path} not found").as_str());
+        let base_data = base_data.lines().collect::<Vec<&str>>()[2]
+            .split(',')
+            .map(|d| d.parse().unwrap())
+            .collect::<Vec<i32>>();
+
+        assert_eq!(data.len(), base_data.len());
+        for i in 0..data.len() {
+            assert_eq!(data[i], base_data[i])
+        }
     }
 }
