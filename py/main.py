@@ -1,11 +1,12 @@
 import csv
+import sys
 from time import perf_counter_ns
 
 import numpy as np
 import tiktoken
 
 if __name__ == "__main__":
-    runs = 50
+    runs = int(sys.argv[1])
     with open("../input.txt") as fin:
         data = fin.read()
 

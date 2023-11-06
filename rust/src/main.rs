@@ -1,7 +1,10 @@
-use std::{fs, time::Instant};
+use std::{env, fs, time::Instant};
 use tiktoken_rs::cl100k_base;
 fn main() {
-    let runs = 50;
+    // get runs from args
+    let args = env::args().collect::<Vec<String>>();
+    let runs = args[1].parse::<usize>().expect("error parsing runs");
+
     let data_path = "../input.txt";
     let data = fs::read_to_string(data_path).expect(format!("{data_path} not found").as_str());
     let test_cases: Vec<&str> = data.split("\n\n").collect();

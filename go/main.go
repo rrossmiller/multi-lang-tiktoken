@@ -2,15 +2,19 @@ package main
 
 import (
 	"fmt"
+	"github.com/pkoukk/tiktoken-go"
 	"os"
+	"strconv"
 	"strings"
 	"time"
-
-	"github.com/pkoukk/tiktoken-go"
 )
 
 func main() {
-	runs := 50
+	runs, err := strconv.Atoi(os.Args[1])
+	if err != nil {
+		panic(err)
+	}
+
 	encoding := "gpt-3.5-turbo"
 	f, err := os.ReadFile("../input.txt")
 	if err != nil {
