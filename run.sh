@@ -9,11 +9,13 @@ echo
 echo "Go"
 cd ../go
 go run . $N
+go test
 
 echo
 echo "Rust"
 cd ../rust
 cargo run --quiet --release -- $N
+cargo test
 
 echo
 echo "Java"
