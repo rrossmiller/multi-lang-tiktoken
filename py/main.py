@@ -18,17 +18,22 @@ if __name__ == "__main__":
     all_results = []
     for _ in range(runs):
         results = []
-        start = perf_counter_ns()
+        # start = perf_counter_ns()
         for d in data:
+            start = perf_counter_ns()
             r = encoding.encode(d)
             results.append(len(r))
+            end = perf_counter_ns() - start
+            times.append(end)
 
-        end = perf_counter_ns() - start
-        times.append(end)
+        # end = perf_counter_ns() - start
+        # times.append(end)
         all_results.append(results)
 
-    avg_time = np.mean(times) / 1e9
-    print(f"Avg Elapsed: {avg_time} seconds")
+    # avg_time = np.mean(times) / 1e9
+    # print(f"Avg Elapsed: {avg_time:.9f} seconds")
+    avg_time = np.mean(times) 
+    print(f"Avg Elapsed: {avg_time:.9f} nano seconds")
 
     all_results = np.mean(all_results, axis=0).astype(int)
     # write results baseline csv

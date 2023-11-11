@@ -32,24 +32,28 @@ func main() {
 	times := []int64{}
 	allResults := [][]int{}
 	for i := 0; i < runs; i++ {
-		start := time.Now()
+		// start := time.Now()
 		results := make([]int, len(data))
 		for j, d := range data {
+		start := time.Now()
 			tokens := tkm.Encode(d, nil, nil)
+			end := time.Since(start).Nanoseconds()
+			times = append(times, end)
 			results[j] = len(tokens)
 		}
-		end := time.Since(start).Nanoseconds()
-		times = append(times, end)
+		// end := time.Since(start).Nanoseconds()
+		// times = append(times, end)
 		allResults = append(allResults, results)
 	}
 
-	avgTime := mean(times) / 1e9
+	// avgTime := mean(times) / 1e9
+	avgTime := mean(times) 
 	fmt.Printf("Avg Elapsed: %v seconds\n", avgTime)
 	allResultsMean := mean2d(allResults)
 
 	//  write results baseline csv
 	var sb strings.Builder
-	sb.WriteString(fmt.Sprintf("Num Samples: %v\nAvg: %v seconds\n", len(data), avgTime))
+	sb.WriteString(fmt.Sprintf("Num Samples: %v\nAvg: %v nano seconds\n", len(data), avgTime))
 	for i, r := range allResultsMean {
 		if i == len(allResultsMean)-1 {
 			sb.WriteString(fmt.Sprintf("%v", r))

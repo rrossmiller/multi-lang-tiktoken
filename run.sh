@@ -20,4 +20,4 @@ cargo test
 echo
 echo "Java"
 cd ../java
-mvn compile exec:java -Dexec.mainClass="com.javatiktoken.App" -Dexec.args="$N" --quiet 
+mvn compile exec:java -Dexec.mainClass="com.javatiktoken.App" -Dexec.args="$N true" --quiet 

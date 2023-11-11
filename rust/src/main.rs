@@ -14,18 +14,23 @@ fn main() {
     let mut all_results = Vec::new();
     for _ in 0..runs {
         let mut results = Vec::new();
-        let start = Instant::now();
+        // let start = Instant::now();
         for d in test_cases.iter() {
+            let start = Instant::now();
             let tokens = encoder.encode_with_special_tokens(d).len();
+            let elapsed = start.elapsed().as_nanos();
+            times.push(elapsed);
             results.push(tokens)
         }
-        let elapsed = start.elapsed().as_nanos();
-        times.push(elapsed);
+        // let elapsed = start.elapsed().as_nanos();
+        // times.push(elapsed);
         all_results.push(results)
     }
 
-    let avg_time = mean_times(&times) / 1e9;
-    println!("Avg Elapsed: {} seconds", avg_time);
+    // let avg_time = mean_times(&times) / 1e9;
+    // println!("Avg Elapsed: {} seconds", avg_time);
+    let avg_time = mean_times(&times);
+    println!("Avg Elapsed: {} nano seconds", avg_time);
 
     let all_results = mean_2d(all_results);
 
